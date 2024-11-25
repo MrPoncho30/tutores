@@ -1,25 +1,24 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'; 
+import Header from './components/header';
+import Footer from './components/footer';
+import LoginForm from './components/loginForm'; 
+import Main from './components/Main'; 
+import FormularioCuestionario from './components/FormQuest'; 
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+const App = () => (
+  <Router>
+    <div className="flex flex-col min-h-screen bg-gray-100">
+      <Header />
+      <Routes>
+        <Route path="/" element={<Navigate to="/loginForm" replace />} />
+        <Route path="/loginForm" element={<LoginForm />} exact />
+        <Route path="/Main" element={<Main />} exact />
+        <Route path="/FormQuest" element={<FormularioCuestionario />} exact /> 
+      </Routes>
+      <Footer />
     </div>
-  );
-}
+  </Router>
+);
 
 export default App;
