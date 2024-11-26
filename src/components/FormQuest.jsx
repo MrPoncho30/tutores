@@ -45,12 +45,75 @@ const FormularioCuestionario = () => {
             </Question>
   
             <Question title="4. Califica tu habilidad para comunicarte efectivamente con tus tutorados:">
-              <div className="flex items-center space-x-4">
-                <input type="range" name="comunicacion" min="1" max="5" className="w-full" />
-                <span className="text-sm text-gray-600">1 (Necesita mejorar) - 5 (Excelente)</span>
+              <div className="flex flex-col items-center space-y-6">
+                <label className="text-2xl font-bold text-[#1B396A] mt-2 text-center">
+                  Habilidad de Comunicación
+                </label>
+                
+                <div className="relative w-full max-w-lg">
+                  <input 
+                    type="range" 
+                    name="comunicacion" 
+                    min="1" 
+                    max="5" 
+                    step="1" 
+                    className="w-full h-4 bg-transparent appearance-none rounded-full cursor-pointer"
+                    style={{
+                      background: "linear-gradient(to right, #FF6F61, #FF9F70)", 
+                    }}
+                  />
+
+                  <style jsx>{`
+                    input[type="range"]::-webkit-slider-thumb {
+                      -webkit-appearance: none;
+                      appearance: none;
+                      width: 24px;
+                      height: 24px;
+                      border-radius: 50%;
+                      background-color: #FF6F61;
+                      border: 2px solid #FF9F70;
+                      cursor: pointer;
+                      transition: background-color 0.3s ease;
+                    }
+
+                    input[type="range"]::-moz-range-thumb {
+                      width: 24px;
+                      height: 24px;
+                      border-radius: 50%;
+                      background-color: #FF6F61;
+                      border: 2px solid #FF9F70;
+                      cursor: pointer;
+                      transition: background-color 0.3s ease;
+                    }
+
+                    input[type="range"]::-ms-thumb {
+                      width: 24px;
+                      height: 24px;
+                      border-radius: 50%;
+                      background-color: #FF6F61;
+                      border: 2px solid #FF9F70;
+                      cursor: pointer;
+                      transition: background-color 0.3s ease;
+                    }
+                  `}</style>
+
+                  {/* Estilo de los textos de las etiquetas */}
+                  <div className="absolute left-0 right-0 flex justify-between text-xs text-[#1B396A] mt-2">
+                    <span className="font-semibold">1</span>
+                    <span className="font-semibold">2</span>
+                    <span className="font-semibold">3</span>
+                    <span className="font-semibold">4</span>
+                    <span className="font-semibold">5</span>
+                  </div>
+                </div>
+
+                <div className="flex items-center justify-between w-full max-w-lg">
+                  <span className="text-sm text-[#6198ff]">1 (Necesita mejorar)</span>
+                  <span className="text-sm text-[#6198ff]">5 (Excelente)</span>
+                </div>
               </div>
             </Question>
-  
+
             <Question title="5. ¿Qué áreas de tu desempeño como tutor crees que necesitas mejorar?">
               <div className="space-y-2">
                 <label className="flex items-center">

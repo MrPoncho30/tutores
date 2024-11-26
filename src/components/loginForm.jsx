@@ -61,7 +61,7 @@ const LoginForm = () => {
                 >
                   Iniciar Sesión
                 </button>
-                <a href="#" className="inline-block align-baseline font-bold text-sm text-[#1B396A] hover:text-[#ffffff]">
+                <a href="#" className="inline-block align-baseline font-bold text-sm text-[#1B396A] hover:text-[#2C5282]">
                   ¿Olvidaste tu contraseña?
                 </a>
               </div>

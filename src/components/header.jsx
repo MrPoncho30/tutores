@@ -1,19 +1,63 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import logo from '../assets/Logo.png';
 
 // ENCABEZADO
 const Header = () => {
   const navigate = useNavigate();
-
+  const location = useLocation(); 
 
   const handleLogout = () => {
-   
     navigate('/loginForm'); 
   };
 
   const handleHome = () => {
-    navigate('/Main'); 
+    navigate('/home'); 
+  };
+
+  const handleMain = () => {
+    navigate('/Main');
+  };
+
+  const renderNavButtons = () => {
+    if (location.pathname === '/loginForm') {
+      return (
+        <button
+          onClick={handleHome}
+          className="hover:text-gray-300 transition duration-300 flex items-center"
+        >
+          Dashboard
+        </button>
+      );
+    }
+    
+    if (location.pathname === '/home') {
+      return (
+        <button
+          onClick={handleLogout}
+          className="hover:text-gray-300 transition duration-300 flex items-center"
+        >
+          Iniciar sesión
+        </button>
+      );
+    }
+
+    return (
+      <>
+        <button
+          onClick={handleMain}
+          className="hover:text-gray-300 transition duration-300 flex items-center"
+        >
+          Inicio
+        </button>
+        <button
+          onClick={handleLogout}
+          className="hover:text-gray-300 transition duration-300 flex items-center"
+        >
+          Cerrar Sesión
+        </button>
+      </>
+    );
   };
 
   return (
@@ -32,18 +76,7 @@ const Header = () => {
             </div>
           </div>
           <nav className="flex flex-wrap justify-center md:justify-end space-x-4">
-            <button
-              onClick={handleHome}
-              className="hover:text-gray-300 transition duration-300 flex items-center"
-            >
-              <i className="fas fa-home mr-2"></i> Inicio
-            </button>
-            <button
-              onClick={handleLogout}
-              className="hover:text-gray-300 transition duration-300 flex items-center"
-            >
-              <i className="fas fa-sign-out-alt mr-2"></i> Cerrar Sesión
-            </button>
+            {renderNavButtons()} 
           </nav>
         </div>
       </div>
