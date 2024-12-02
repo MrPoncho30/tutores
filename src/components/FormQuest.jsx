@@ -29,36 +29,48 @@ const FormularioCuestionario = () => {
             title="1. ¿Cuál es tu nivel de experiencia en tutoría académica?"
             isAnswered={answeredQuestions.experiencia}
           >
-            <div className="space-y-2">
-              <label className="flex items-center">
-                <input 
-                  type="radio" 
-                  name="experiencia" 
-                  value="1" 
-                  className="mr-2" 
-                  onChange={() => handleAnswer('experiencia')}
+            <div className="flex justify-center items-center gap-8 mt-4">
+              <label className="flex flex-col items-center gap-2">
+                <input
+                  type="radio"
+                  name="experiencia"
+                  value="1"
+                  className="hidden peer"
+                  onChange={() => handleAnswer("experiencia")}
                 />
-                <span>Principiante (menos de 1 año)</span>
+                <div className="w-16 h-16 rounded-full border flex items-center justify-center cursor-pointer peer-checked:border-blue-700 peer-checked:bg-blue-700 transition duration-300">
+                  <span className="font-semibold text-[#1B396A] peer-checked:text-white">1</span>
+                </div>
+                <span className="font-semibold text-[#1B396A]">Principiante</span>
+                <p className="text-xs text-gray-500">(menos de 1 año)</p>
               </label>
-              <label className="flex items-center">
-                <input 
-                  type="radio" 
-                  name="experiencia" 
-                  value="2" 
-                  className="mr-2" 
-                  onChange={() => handleAnswer('experiencia')}
+              <label className="flex flex-col items-center gap-2">
+                <input
+                  type="radio"
+                  name="experiencia"
+                  value="2"
+                  className="hidden peer"
+                  onChange={() => handleAnswer("experiencia")}
                 />
-                <span>Intermedio (1-3 años)</span>
+                <div className="w-20 h-20 rounded-full border flex items-center justify-center cursor-pointer peer-checked:border-blue-700 peer-checked:bg-blue-700 transition duration-300">
+                  <span className="font-semibold text-[#1B396A] peer-checked:text-white ">2</span>
+                </div>
+                <span className="font-semibold text-[#1B396A]">Intermedio</span>
+                <p className="text-xs text-gray-500">(1-3 años)</p>
               </label>
-              <label className="flex items-center">
-                <input 
-                  type="radio" 
-                  name="experiencia" 
-                  value="3" 
-                  className="mr-2" 
-                  onChange={() => handleAnswer('experiencia')}
+              <label className="flex flex-col items-center gap-2">
+                <input
+                  type="radio"
+                  name="experiencia"
+                  value="3"
+                  className="hidden peer"
+                  onChange={() => handleAnswer("experiencia")}
                 />
-                <span>Avanzado (más de 3 años)</span>
+                <div className="w-24 h-24 rounded-full border flex items-center justify-center cursor-pointer peer-checked:border-blue-700 peer-checked:bg-blue-700 transition duration-300">
+                  <span className="font-semibold text-[#1B396A] peer-checked:text-white">3</span>
+                </div>
+                <span className="font-semibold text-[#1B396A]">Avanzado</span>
+                <p className="text-xs text-gray-500">(más de 3 años)</p>
               </label>
             </div>
           </Question>
