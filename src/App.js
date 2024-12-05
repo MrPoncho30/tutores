@@ -7,6 +7,8 @@ import Main from './components/Main';
 import FormularioCuestionario from './components/FormQuest'; 
 import Home from './components/home';
 import 'font-awesome/css/font-awesome.min.css';
+import ProfilePage from "./components/profile";
+
 
 
 const App = () => (
@@ -20,6 +22,7 @@ const App = () => (
         <Route path="/loginForm" element={<LoginForm />} />
         <Route path="/Main" element={<Main />} />
         <Route path="/FormQuest" element={<FormularioCuestionario />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
       <Footer />
     </div>

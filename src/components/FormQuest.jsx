@@ -1,5 +1,5 @@
-import Question from './Question'; 
 import { useState } from 'react';
+import { Question, QuestionOption } from './Question';
 
 const FormularioCuestionario = () => {
   const [answeredQuestions, setAnsweredQuestions] = useState({
@@ -9,14 +9,19 @@ const FormularioCuestionario = () => {
     comunicacion: false,
     mejoras: false
   });
+  const [selectedOption, setSelectedOption] = useState({experiencia: null});
 
-  const handleAnswer = (questionName) => {
+  const handleSelectOption = (questionName, option) => {
+    setSelectedOption((prevState) => ({
+      ...prevState,
+      [questionName]: option,
+    }));
     setAnsweredQuestions((prevState) => ({
       ...prevState,
-      [questionName]: true
+      [questionName]: true, // Marca la pregunta como respondida
     }));
   };
-
+  
   return (
     <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-md p-6 mt-20 mb-6">
       <h1 className="text-3xl font-bold text-[#1B396A] mb-6 mt-6">Cuestionario de Competencias Tutorales</h1>
@@ -25,55 +30,43 @@ const FormularioCuestionario = () => {
       </p>
       <form>
         <div className="space-y-6">
-          <Question
+        <Question
             title="1. ¿Cuál es tu nivel de experiencia en tutoría académica?"
             isAnswered={answeredQuestions.experiencia}
           >
-            <div className="flex justify-center items-center gap-8 mt-4">
-              <label className="flex flex-col items-center gap-2">
-                <input
-                  type="radio"
-                  name="experiencia"
-                  value="1"
-                  className="hidden peer"
-                  onChange={() => handleAnswer("experiencia")}
-                />
-                <div className="w-16 h-16 rounded-full border flex items-center justify-center cursor-pointer peer-checked:border-blue-700 peer-checked:bg-blue-700 transition duration-300">
-                  <span className="font-semibold text-[#1B396A] peer-checked:text-white">1</span>
-                </div>
-                <span className="font-semibold text-[#1B396A]">Principiante</span>
-                <p className="text-xs text-gray-500">(menos de 1 año)</p>
-              </label>
-              <label className="flex flex-col items-center gap-2">
-                <input
-                  type="radio"
-                  name="experiencia"
-                  value="2"
-                  className="hidden peer"
-                  onChange={() => handleAnswer("experiencia")}
-                />
-                <div className="w-20 h-20 rounded-full border flex items-center justify-center cursor-pointer peer-checked:border-blue-700 peer-checked:bg-blue-700 transition duration-300">
-                  <span className="font-semibold text-[#1B396A] peer-checked:text-white ">2</span>
-                </div>
-                <span className="font-semibold text-[#1B396A]">Intermedio</span>
-                <p className="text-xs text-gray-500">(1-3 años)</p>
-              </label>
-              <label className="flex flex-col items-center gap-2">
-                <input
-                  type="radio"
-                  name="experiencia"
-                  value="3"
-                  className="hidden peer"
-                  onChange={() => handleAnswer("experiencia")}
-                />
-                <div className="w-24 h-24 rounded-full border flex items-center justify-center cursor-pointer peer-checked:border-blue-700 peer-checked:bg-blue-700 transition duration-300">
-                  <span className="font-semibold text-[#1B396A] peer-checked:text-white">3</span>
-                </div>
-                <span className="font-semibold text-[#1B396A]">Avanzado</span>
-                <p className="text-xs text-gray-500">(más de 3 años)</p>
-              </label>
-            </div>
+            <QuestionOption
+              value="A"
+              label={
+                <span>
+                  <b>A.</b> Principiante (menos de 1 año)
+                </span>
+              }
+              isSelected={selectedOption.experiencia === 'A'}
+              onChange={() => handleSelectOption('experiencia', 'A')}
+            />
+      
+            <QuestionOption
+              value="B"
+              label={
+                <span>
+                  <b>B.</b> Intermedio (1-3 años)
+                </span>
+              }
+              isSelected={selectedOption.experiencia === 'B'}
+              onChange={() => handleSelectOption('experiencia', 'B')}
+            />
+            <QuestionOption
+              value="C"
+              label={
+                <span>
+                  <b>C.</b> Avanzado (más de 3 años)
+                </span>
+              }
+              isSelected={selectedOption.experiencia === 'C'}
+              onChange={() => handleSelectOption('experiencia', 'C')}
+            />
           </Question>
+
 
           <Question
             title="2. ¿Qué estrategias utilizas para motivar a tus tutorados?"
@@ -84,7 +77,7 @@ const FormularioCuestionario = () => {
               rows="4"
               className="w-full p-2 border rounded-md"
               placeholder="Describe tus estrategias aquí..."
-              onBlur={() => handleAnswer('estrategias')}
+              onBlur={() => handleSelectOption('estrategias')}
             ></textarea>
           </Question>
 
@@ -97,7 +90,7 @@ const FormularioCuestionario = () => {
               rows="4"
               className="w-full p-2 border rounded-md"
               placeholder="Explica tu enfoque aquí..."
-              onBlur={() => handleAnswer('manejo_conflictos')}
+              onBlur={() => handleSelectOption('manejo_conflictos')}
             ></textarea>
           </Question>
 
@@ -120,7 +113,7 @@ const FormularioCuestionario = () => {
                   style={{
                     background: "linear-gradient(to right, #FF6F61, #FF9F70)", 
                   }}
-                  onChange={() => handleAnswer('comunicacion')} 
+                  onChange={() => handleSelectOption('comunicacion')} 
                 />
                 <style jsx>{`
                   input[type="range"]::-webkit-slider-thumb {
@@ -176,20 +169,20 @@ const FormularioCuestionario = () => {
           >
             <div className="space-y-2">
             <label className="flex items-center">
-                  <input type="checkbox" name="mejoras[]" value="conocimiento" className="mr-2" onChange={() => handleAnswer('mejoras')}
+                  <input type="checkbox" name="mejoras[]" value="conocimiento" className="mr-2" onChange={() => handleSelectOption('mejoras')}
                   />
                   <span>Conocimiento del tema</span>
                 </label>
                 <label className="flex items-center">
-                  <input type="checkbox" name="mejoras[]" value="comunicacion" className="mr-2" onChange={() => handleAnswer('mejoras')} />
+                  <input type="checkbox" name="mejoras[]" value="comunicacion" className="mr-2" onChange={() => handleSelectOption('mejoras')} />
                   <span>Habilidades de comunicación</span>
                 </label>
                 <label className="flex items-center">
-                  <input type="checkbox" name="mejoras[]" value="planificacion" className="mr-2" onChange={() => handleAnswer('mejoras')} />
+                  <input type="checkbox" name="mejoras[]" value="planificacion" className="mr-2" onChange={() => handleSelectOption('mejoras')} />
                   <span>Planificación de sesiones</span>
                 </label>
                 <label className="flex items-center">
-                  <input type="checkbox" name="mejoras[]" value="evaluacion" className="mr-2" onChange={() => handleAnswer('mejoras')} />
+                  <input type="checkbox" name="mejoras[]" value="evaluacion" className="mr-2" onChange={() => handleSelectOption('mejoras')} />
                   <span>Evaluación del progreso del tutorado</span>
                 </label>
             </div>
