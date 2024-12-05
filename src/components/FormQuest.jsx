@@ -18,7 +18,7 @@ const FormularioCuestionario = () => {
     }));
     setAnsweredQuestions((prevState) => ({
       ...prevState,
-      [questionName]: true, // Marca la pregunta como respondida
+      [questionName]: true,
     }));
   };
   
