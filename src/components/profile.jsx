@@ -1,15 +1,52 @@
-import React from "react";
-import entradaImage from '../assets/entrada2.jpg'; 
-
+import React, { useState, useEffect } from "react";
+import entradaImage from "../assets/entrada2.jpg";
 
 const ProfilePage = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAnimation, setModalAnimation] = useState("translate-y-[-100%]");
+  const [personalInfo, setPersonalInfo] = useState({
+    name: "Angel Alfonso Avila García",
+    email: "user@merida.tecnm.mx",
+    phone: "+52 123-456-780",
+  });
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setPersonalInfo((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalAnimation("translate-y-[-100%]");
+    setTimeout(() => {
+      setIsModalOpen(false);
+    }, 500);
+  };
+
+  const handleSave = () => {
+    console.log("Datos actualizados:", personalInfo);
+    handleCloseModal();
+  };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setModalAnimation("translate-y-0");
+    }
+  }, [isModalOpen]);
+
   return (
     <div className="relative">
       <main
         className="relative w-full min-h-screen"
         style={{
-            backgroundImage: `url(${entradaImage})`, 
-            backgroundSize: "cover",
+          backgroundImage: `url(${entradaImage})`,
+          backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           backgroundAttachment: "fixed",
@@ -27,13 +64,13 @@ const ProfilePage = () => {
                   Información Personal
                 </h2>
                 <p className="mt-2 text-gray-600">
-                  Nombre: <span className="font-medium">Angel Alfonso Avila García</span>
+                  Nombre: <span className="font-medium">{personalInfo.name}</span>
                 </p>
                 <p className="mt-2 text-gray-600">
-                  Correo: <span className="font-medium">user@merida.tecnm.mx</span>
+                  Correo: <span className="font-medium">{personalInfo.email}</span>
                 </p>
                 <p className="mt-2 text-gray-600">
-                  Teléfono: <span className="font-medium">+52 123-456-780</span>
+                  Teléfono: <span className="font-medium">{personalInfo.phone}</span>
                 </p>
               </div>
 
@@ -56,16 +93,80 @@ const ProfilePage = () => {
             <div className="mt-6 text-center">
               <button
                 className="px-6 py-3 rounded-lg bg-[#9EBE5D] text-white font-bold hover:bg-[#86A14A] transition duration-300"
+                onClick={handleOpenModal}
               >
                 Editar Perfil
               </button>
             </div>
           </div>
         </div>
-        
+
+        {/* Modal EDITAR INFO */}
+        {isModalOpen && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50">
+            <div
+              className={`bg-white rounded-lg p-6 w-full max-w-md transform transition-transform duration-500 ease-out ${modalAnimation}`}
+            >
+              <h2 className="text-2xl font-bold text-[#0f1a2b] mb-4">
+                Editar Información Personal
+              </h2>
+              <div className="space-y-4">
+                <div>
+                  <label className="block text-gray-700 font-medium">
+                    Nombre
+                  </label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={personalInfo.name}
+                    onChange={handleInputChange}
+                    className="w-full mt-1 p-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-medium">
+                    Correo
+                  </label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={personalInfo.email}
+                    onChange={handleInputChange}
+                    className="w-full mt-1 p-2 border rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label className="block text-gray-700 font-medium">
+                    Teléfono
+                  </label>
+                  <input
+                    type="text"
+                    name="phone"
+                    value={personalInfo.phone}
+                    onChange={handleInputChange}
+                    className="w-full mt-1 p-2 border rounded-lg"
+                  />
+                </div>
+              </div>
+              <div className="mt-6 flex justify-end space-x-4">
+                <button
+                  className="px-4 py-2 bg-gray-300 rounded-lg hover:bg-gray-400"
+                  onClick={handleCloseModal}
+                >
+                  Cancelar
+                </button>
+                <button
+                  className="px-4 py-2 bg-[#9EBE5D] text-white font-bold rounded-lg hover:bg-[#86A14A]"
+                  onClick={handleSave}
+                >
+                  Guardar
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
       </main>
     </div>
-    
   );
 };
 
